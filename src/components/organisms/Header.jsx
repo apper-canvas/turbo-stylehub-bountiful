@@ -5,7 +5,7 @@ import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
 import { selectWishlistItems } from "@/store/slices/wishlistSlice";
 import { selectCartCount } from "@/store/slices/cartSlice";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/layouts/Root";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
