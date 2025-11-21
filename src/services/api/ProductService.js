@@ -534,7 +534,6 @@ export const deleteProduct = async (id) => {
     return false;
   }
 };
-import { getApperClient } from "@/services/apperClient";
 
 // Field mappings from mock data to database fields
 const mapProductToDatabase = (product) => ({

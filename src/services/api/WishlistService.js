@@ -148,7 +148,6 @@ export const findByProductId = async (productId) => {
     return null;
   }
 };
-import { getApperClient } from "@/services/apperClient";
 
 // Map wishlist item to database format
 const mapWishlistItemToDatabase = (item) => ({

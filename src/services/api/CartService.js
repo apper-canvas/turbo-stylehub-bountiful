@@ -183,7 +183,6 @@ export const findByProductAndOptions = async (productId, size, color) => {
     return null;
   }
 };
-import { getApperClient } from "@/services/apperClient";
 
 // Map cart item to database format
 const mapCartItemToDatabase = (item) => ({
