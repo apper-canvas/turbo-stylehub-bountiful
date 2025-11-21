@@ -3,15 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
-import { selectCartCount } from "@/store/slices/cartSlice";
 import { selectWishlistItems } from "@/store/slices/wishlistSlice";
+import { selectCartCount } from "@/store/slices/cartSlice";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const cartCount = useSelector(selectCartCount);
   const wishlistItems = useSelector(selectWishlistItems);
-
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { logout } = useAuth();
   const categories = [
     {
       name: "Men",
@@ -43,7 +45,7 @@ const Header = () => {
         { name: "Shoes", href: "/category/kids?sub=shoes" },
       ]
     }
-  ];
+];
 
   return (
     <header className="sticky top-0 z-40 bg-surface border-b border-gray-200 shadow-sm">
@@ -94,7 +96,7 @@ const Header = () => {
             <SearchBar />
           </div>
 
-          {/* Right Icons */}
+{/* Right Icons */}
           <div className="flex items-center space-x-4">
             {/* Search Icon - Mobile */}
             <button 
@@ -129,6 +131,25 @@ const Header = () => {
                 </span>
               )}
             </Link>
+
+            {/* User Actions */}
+            {isAuthenticated ? (
+              <button
+                onClick={logout}
+                className="text-secondary hover:text-accent transition-colors flex items-center gap-2"
+              >
+                <ApperIcon name="LogOut" className="w-5 h-5" />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="text-secondary hover:text-accent transition-colors flex items-center gap-2"
+              >
+                <ApperIcon name="User" className="w-5 h-5" />
+                <span className="hidden sm:inline">Login</span>
+              </Link>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button

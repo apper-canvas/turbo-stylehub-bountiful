@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const loadCartFromStorage = () => {
   try {
@@ -23,7 +23,7 @@ const cartSlice = createSlice({
   initialState: {
     items: loadCartFromStorage(),
   },
-  reducers: {
+reducers: {
     addToCart: (state, action) => {
       const { productId, name, brand, image, size, color, price, discountPrice } = action.payload;
       const existingItem = state.items.find(
@@ -45,7 +45,7 @@ const cartSlice = createSlice({
           discountPrice: discountPrice || price,
         });
       }
-      
+      // TODO: Sync with database via CartService
       saveCartToStorage(state.items);
     },
     removeFromCart: (state, action) => {
@@ -53,6 +53,7 @@ const cartSlice = createSlice({
       state.items = state.items.filter(
         item => !(item.productId === productId && item.size === size && item.color === color)
       );
+      // TODO: Sync with database via CartService
       saveCartToStorage(state.items);
     },
     updateQuantity: (state, action) => {

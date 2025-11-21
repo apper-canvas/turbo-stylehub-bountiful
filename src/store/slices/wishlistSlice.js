@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice } from "@reduxjs/toolkit";
 const loadWishlistFromStorage = () => {
   try {
     const savedWishlist = localStorage.getItem('stylehub-wishlist');
@@ -23,7 +22,7 @@ const wishlistSlice = createSlice({
   initialState: {
     items: loadWishlistFromStorage(),
   },
-  reducers: {
+reducers: {
     addToWishlist: (state, action) => {
       const { productId, name, brand, image, price, discountPrice, inStock } = action.payload;
       const exists = state.items.find(item => item.productId === productId);
@@ -38,15 +37,17 @@ const wishlistSlice = createSlice({
           discountPrice: discountPrice || price,
           inStock,
         });
-        saveWishlistToStorage(state.items);
       }
-    },
-    removeFromWishlist: (state, action) => {
-      const productId = action.payload;
-      state.items = state.items.filter(item => item.productId !== productId);
+      // TODO: Sync with database via WishlistService
       saveWishlistToStorage(state.items);
     },
-    clearWishlist: (state) => {
+removeFromWishlist: (state, action) => {
+      const productId = action.payload;
+      state.items = state.items.filter(item => item.productId !== productId);
+      // TODO: Sync with database via WishlistService
+      saveWishlistToStorage(state.items);
+    },
+clearWishlist: (state) => {
       state.items = [];
       saveWishlistToStorage(state.items);
     },
